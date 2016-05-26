@@ -27,7 +27,11 @@ module.exports = function loadGeometry(feature) {
                 point.x > EXTENT_MAX ||
                 point.y < EXTENT_MIN ||
                 point.y > EXTENT_MAX) {
-                util.warnOnce('Geometry exceeds allowed extent, reduce your vector tile buffer size');
+                // NOTE:
+                // =============================================================
+                // Intentionally removed 'exceeds allowed extent' warning as it
+                // seems to fire at least some of the time no matter what
+                // data you're trying to render.
             }
         }
     }
