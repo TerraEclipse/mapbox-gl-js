@@ -1,5 +1,5 @@
 {
-  "name": "mapbox-gl",
+  "name": "@terraeclipse/mapbox-gl",
   "description": "A WebGL interactive maps library",
   "version": "0.20.0",
   "main": "js/mapbox-gl.js",
