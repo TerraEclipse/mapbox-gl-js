@@ -107,6 +107,15 @@ util.extend(Worker.prototype, {
         function done(err, data) {
             delete this.loading[source][uid];
 
+            // From:
+            // https://github.com/mjumbewu/mapbox-gl-js/commit/b058bdfd3cffd3fd2a8a417181b10529fc5eb76a
+            //
+            // If the tile was not found, it's probably not acutally
+            // an error. There should be a better way of handing this
+            // though.
+            if (err && err.message === 'Not Found') return callback();
+
+            // Otherwise, treat it like an error.
             if (err) return callback(err);
 
             tile.data = new vt.VectorTile(new Protobuf(new Uint8Array(data)));
