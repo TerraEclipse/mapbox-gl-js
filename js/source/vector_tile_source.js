@@ -84,11 +84,7 @@ VectorTileSource.prototype = util.inherit(Evented, {
         if (tile.aborted)
             return;
 
-        if (err) {
-            tile.errored = true;
-            this.fire('tile.error', {tile: tile, error: err});
-            return;
-        }
+        // Remove tile error reporting altogether :O
 
         tile.loadVectorData(data, this.map.style);
 
@@ -98,7 +94,7 @@ VectorTileSource.prototype = util.inherit(Evented, {
         }
 
         this.fire('tile.load', {tile: tile});
-        this.fire('tile.stats', data.bucketStats);
+        if (data) this.fire('tile.stats', data.bucketStats);
     },
 
     _abortTile: function(tile) {

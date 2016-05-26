@@ -59,5 +59,17 @@ Actor.prototype.send = function(type, data, callback, buffers) {
  * @private
  */
 Actor.prototype.postMessage = function(message, transferList) {
-    this.target.postMessage(message, transferList);
+    // Hack to address errors thrown by changes to worker.js
+    var missingValue = false;
+    var i = 0
+    if (transferList) {
+        for (i; i < transferList.length; i++) {
+            if (typeof transferList[i] === 'undefined') {
+                missingValue = true;
+            }
+        }
+    }
+    if (!missingValue) {
+        this.target.postMessage(message, transferList);
+    }
 };
